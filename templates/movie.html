@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电影搜索结果</title>
+    <!-- 引入CSS样式 -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+    <!-- 导航栏和搜索框可以复用之前的代码 -->
+
+    <main class="search-results-container">
+{#        <h2 class="results-title">搜索结果 - "{{ search_query }}"</h2>#}
+{##}
+{#        <!-- 搜索结果过滤或排序选项（可选） -->#}
+{#        <div class="filter-options">#}
+{#            <label for="sort-by">排序方式：</label>#}
+{#            <select id="sort-by">#}
+{#                <option value="popular">按热门程度</option>#}
+{#                <option value="date">按上映日期</option>#}
+{#                <!-- 其他排序选项 -->#}
+{#            </select>#}
+{#            <!-- 更多筛选条件（如类型、年份等） -->#}
+{#        </div>#}
+
+        <!-- 搜索结果列表 -->
+        <section class="movie-list">
+            {% for movie in movies %}
+                <article class="movie-card">
+                    <img style="width: 300px; height: 300px" src="{{ movie.poster_url }}" alt="{{ movie.title }} 的海报" class="movie-poster">
+{#                    <div class="movie-info">#}
+                        <h3 class="movie-title">{{ movie.title }}</h3>
+                        <p class="movie-director">导演：{{ movie.director }}</p>
+                        <p class="movie-genre">类型：{{ movie.genre }}</p>
+                        <p class="movie-year">上映年份：{{ movie.release_year }}</p>
+                        <!-- 可以根据需要添加更多电影信息 -->
+{#                    </div>#}
+                    <button style=" margin: 10px" onclick="location.href='/live'">开房播放</button>
+                </article>
+
+            {% empty %}
+                <p class="no-results">很抱歉，没有找到与“{{ search_query }}”相关的电影。</p>
+            {% endfor %}
+
+        </section>
+
+        <!-- 分页导航 -->
+{#        {% if is_paginated %}#}
+{#            <nav class="pagination">#}
+{#                {% if page_obj.has_previous %}#}
+{#                    <a href="?page={{ page_obj.previous_page_number }}&query={{ search_query }}" class="prev-page">上一页</a>#}
+{#                {% endif %}#}
+{#                <span class="current-page">当前页: {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>#}
+{#                {% if page_obj.has_next %}#}
+{#                    <a href="?page={{ page_obj.next_page_number }}&query={{ search_query }}" class="next-page">下一页</a>#}
+{#                {% endif %}#}
+{#            </nav>#}
+{#        {% endif %}#}
+    </main>
+</body>
+</html>
