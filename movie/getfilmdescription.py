@@ -44,21 +44,6 @@ def getfilmdescription(film_Name):
             for task in tasks:
                 list_json_datas.extend(task.result())
             return list_json_datas
-
-            # for i in range(1, pages + 1):
-            #     url = f'https://www.xigua29.com/search.php?page={i}&searchword=={film_Name}'
-            #     response = requests.get(url, headers=headers)
-            #     if response.status_code == 200:
-            #         soup = BeautifulSoup(response.text, 'html.parser')
-            #         json_datas = pageProcess(soup)
-            #         if json_datas:
-            #             list_json_datas.extend(json_datas)
-            #         else:
-            #             # 当前页没有资源
-            #             print('没有资源')
-            #     else:
-            #         print(f"请求失败，状态码: {response.status_code}")
-            # return list_json_datas
         else:
             return []
     else:
@@ -184,4 +169,4 @@ def parse_m3u8(m3u8_url):
 
 
 if __name__ == '__main__':
-    getfilmdescription('三傻')
+    getfilmdescription('三')
