@@ -1,22 +1,7 @@
-import re
-import asyncio
 import requests
 from bs4 import BeautifulSoup
-
-
-def getOnePage(url):
-    response = requests.get(url)
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.text, 'html.parser')
-        json_datas = pageProcess(soup)
-        if json_datas:
-            return json_datas
-        else:
-            # 当前页没有资源
-            print('没有资源')
-    else:
-        print(f"请求失败，状态码: {response.status_code}")
-        return None
+import re
+import json
 
 
 def getfilmdescription(film_Name):
@@ -35,9 +20,19 @@ def getfilmdescription(film_Name):
 
             # 对每一页爬取内容，以数组->字典形式存入 list_json_datas
             list_json_datas = []
-            # 多线程爬取
             for i in range(1, pages + 1):
-                getOnePage(f'https://www.xigua29.com/search.php?page={i}&searchword=={film_Name}')
+                url = f'https://www.xigua29.com/search.php?page={i}&searchword=={film_Name}'
+                response = requests.get(url, headers=headers)
+                if response.status_code == 200:
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    json_datas = pageProcess(soup)
+                    if json_datas:
+                        list_json_datas.extend(json_datas)
+                    else:
+                        # 当前页没有资源
+                        print('没有资源')
+                else:
+                    print(f"请求失败，状态码: {response.status_code}")
             return list_json_datas
         else:
             return []
@@ -164,4 +159,4 @@ def parse_m3u8(m3u8_url):
 
 
 if __name__ == '__main__':
-    getfilmdescription('三')
+    parse_m3u8('https://v.gsuus.com/play/7ax76GBe/index.m3u8')
