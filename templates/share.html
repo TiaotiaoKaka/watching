@@ -10,13 +10,14 @@
 <button onclick="copyLink()">分享一起看链接</button>
 <button onclick="syncProgress()">同步</button>
 <!-- 假设你的Django路由是/streaming/ -->
-<video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" style="height: 100%; width: 100%">
+<video disabled id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" style="height: 100%; width: 100%">
         <source id="source" src="{{ m3u8Url }}" type="application/x-mpegURL">
 </video>
 
 
 
 <script>
+var token = "{{ token }}"
 // 复制链接
 function copyLink() {
     // 获取到域名根
@@ -35,7 +36,7 @@ function copyLink() {
 // 同步进度
 function syncProgress() {
     // 获取进度并设置到播放器
-    fetch('/progress', {
+    fetch('/progress?token=' + token, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -43,10 +44,7 @@ function syncProgress() {
     }).then(res => {
         res.json().then(data => {
             if (data.status === 'play') {
-                // 如果时间差大于2秒则同步
-                if (Math.abs(data.currentTime - hander.currentTime()) > 1) {
-                    hander.currentTime(data.currentTime);
-                }
+                hander.currentTime(data.currentTime);
                 hander.play();
             } else {
                 hander.currentTime(data.currentTime);
@@ -54,7 +52,7 @@ function syncProgress() {
             }
         })
     })
-    
+
 }
 
 // videojs 简单使用
@@ -68,44 +66,26 @@ hander = videojs('myVideo', {
 // 页面加载完成后自动播放
 hander.ready(function () {
     var player = this;
-    
     player.play();
-    
     player.on('ended', function () {
         player.play();
     });
-    
-    // 同步一次进度
+    // 同步进度
     syncProgress();
-    
-    // 定时更新进度条
-    setInterval(() => {
-          sendProgressToBackend(videoPlayer.currentTime(), videoPlayer.duration(), videoPlayer.paused() ? 'pause' : 'play');
-    }, 3 * 1000)
 });
+
+// 点击播放前先同步进度
+hander.on('play', function () {
+    syncProgress();
+})
 
 
 var token = "{{ token }}";
 
+// 一分钟同步一次进度
+setInterval(syncProgress, 3 * 1000);
 
 
-const videoPlayer = hander;
-
-
-
-
-
-
-function sendProgressToBackend(currentTime, duration, status) {
-  // 发送POST请求包含当前时间和总时长
-  fetch('/progress?token='+token, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ currentTime: currentTime, duration: duration, status: status})
-  })
-}
 </script>
 </body>
 </html>

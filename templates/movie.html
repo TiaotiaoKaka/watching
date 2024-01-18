@@ -38,7 +38,7 @@
                         <p class="movie-year">上映年份：{{ movie.time }}</p>
                         <!-- 可以根据需要添加更多电影信息 -->
 {#                    </div>#}
-                    <button style=" margin: 10px" onclick="location.href='/live'">开房播放</button>
+                    <button style=" margin: 10px" onclick="location.href='/live?url={{ movie.now }}'">开房播放</button>
                 </article>
 
             {% empty %}

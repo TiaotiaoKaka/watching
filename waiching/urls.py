@@ -24,5 +24,8 @@ urlpatterns = [
     path('', movie.views.search_page),
     path('movie', movie.views.movie_page),
     path('live', movie.views.get_live),
-    path('streaming', movie.views.live_stream),
+    # path('streaming', movie.views.live_stream),
+    path('streaming/<str:token>', movie.views.live_stream),
+    path('progress', movie.views.set_progress),
+    path('tsreaming', movie.views.ts_stream),
 ]

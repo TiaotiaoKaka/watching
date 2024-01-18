@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import json
 
+
 def getfilmdescription(film_Name):
     # 初次请求获取搜索页数 pages
     url = f'https://www.xigua29.com/search.php?page=1&searchword=={film_Name}'
@@ -19,7 +20,7 @@ def getfilmdescription(film_Name):
 
             # 对每一页爬取内容，以数组->字典形式存入 list_json_datas
             list_json_datas = []
-            for i in range(1, pages+1):
+            for i in range(1, pages + 1):
                 url = f'https://www.xigua29.com/search.php?page={i}&searchword=={film_Name}'
                 response = requests.get(url, headers=headers)
                 if response.status_code == 200:
@@ -52,7 +53,7 @@ def getplaym3u8(playpage_original_value):
         script_tags = soup.find_all('script', text=re.compile(r'var\s+now'))
         if script_tags:
             for script_tag in script_tags:
-                m3u8_values=[]
+                m3u8_values = []
                 # 使用正则表达式提取 now(m3u8) 的值
                 match1 = re.search(r'var\s+now\s*=\s*"([^"]+)"', script_tag.string)
                 match2 = re.search(r'var\s+next\s*=\s*"([^"]+)"', script_tag.string)
@@ -72,6 +73,7 @@ def getplaym3u8(playpage_original_value):
     else:
         print(f"请求失败，状态码: {response.status_code}")
         return None
+
 
 def pageProcess(soup):
     # 查找盒子内容
@@ -103,13 +105,14 @@ def pageProcess(soup):
                 # 提取结果，如果匹配成功，获取第一个捕获组的内容，否则为空字符串
                 director_value = match.group(1) if match else ''
                 # 获取第二个 p 标签中的所有 a 标签内的人名，用空格连接起来作为值，'actor' 作为键
-                actor_value = ','.join([a.text.strip() for a in p_tags[1].find_all('a')]) if len(p_tags[1].find_all('a')) > 1 else ''
+                actor_value = ','.join([a.text.strip() for a in p_tags[1].find_all('a')]) if len(
+                    p_tags[1].find_all('a')) > 1 else ''
                 # 获取第3个 p 标签中的所有内容,使用列表索引逐项表示 'type'、'area'、'time' 作为键
                 mix_value = ''.join([a.text.strip() for a in p_tags[2]]) if len(p_tags[2]) > 1 else ''
                 # 使用正则表达式提取在"类型："和"地区："之间的内容
                 match = re.search(r'类型：(.*?)地区：', mix_value)
                 # 提取结果，如果匹配成功，获取第一个捕获组的内容，否则为空字符串
-                type_value= match.group(1) if match else ''
+                type_value = match.group(1) if match else ''
                 # 使用正则表达式提取在"地区："和"年份："之间的内容
                 match = re.search(r'地区：(.*?)年份：', mix_value)
                 # 提取结果，如果匹配成功，获取第一个捕获组的内容，否则为空字符串
@@ -123,8 +126,8 @@ def pageProcess(soup):
                 if p_a_tag and 'href' in p_a_tag.attrs:
                     playpage_original_value = p_a_tag['href']
                 m3u8_values = getplaym3u8(playpage_original_value)
-                json_data={
-                    'image': 'https://www.xigua29.com'+data_original_value,
+                json_data = {
+                    'image': 'https://www.xigua29.com' + data_original_value,
                     'title': title_value,
                     'director': director_value,
                     'actor': actor_value,
@@ -133,7 +136,7 @@ def pageProcess(soup):
                     'time': time_value,
                     'playpage': playpage_original_value,
                     'now': m3u8_values[0],
-                    'next':m3u8_values[1]
+                    'next': m3u8_values[1]
                 }
             json_datas.append(json_data)
         return json_datas
@@ -141,4 +144,19 @@ def pageProcess(soup):
         # 没有资源,None用[]替代
         return []
 
-print(getfilmdescription('猪猪侠'))
+
+def parse_m3u8(m3u8_url):
+    """
+    解析m3u8文件，返回m3u8文件的内容
+    :param m3u8_url: m3u8文件的url
+    :return: m3u8文件的内容
+    """
+    m3u8_content = requests.get(m3u8_url).text
+    if m3u8_content:
+        return m3u8_content
+    else:
+        return None
+
+
+if __name__ == '__main__':
+    parse_m3u8('https://v.gsuus.com/play/7ax76GBe/index.m3u8')
