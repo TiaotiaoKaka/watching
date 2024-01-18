@@ -9,6 +9,7 @@
 <body>
 <button onclick="copyLink()">分享一起看链接</button>
 <button onclick="syncProgress()">同步</button>
+<h2>分享界面会自动被同步</h2>
 <!-- 假设你的Django路由是/streaming/ -->
 <video disabled id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" style="height: 100%; width: 100%">
         <source id="source" src="{{ m3u8Url }}" type="application/x-mpegURL">
