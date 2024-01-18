@@ -1,48 +1,62 @@
+<!-- 假设你的Django路由是/streaming/ -->
+<video id="player" controls width="100%" height="100%">
+  <source src="/streaming/" type="application/x-mpegURL">
+</video>
 
-<!doctype html>
-<html lang="zh">
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+if (Hls.isSupported()) {
+    var video = document.getElementById('player');
+    var hls = new Hls();
+    hls.loadSource('/streaming');
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+      video.play();
+    });
+}
 
-<head>
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta http-equiv="x-ua-compatible" content="IE=7,9,10">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title id="title"></title>
-</head>
+const videoPlayer = document.getElementById('player');
 
-<body>
-    <h1>Hello flv</h1>
-    <button onclick="play()">播放</button>
-    <button onclick="pause()">暂停</button>
-    <br><br>
-    <video id="videoElement" height="500" width="1000" style="border:thin solid black" controls loop></video>
-{#    <script src="flv.js"></script>#}
-    <script src="https://cdn.jsdelivr.net/npm/flv.js@1.6.2/dist/flv.min.js"></script>
-    <script>
-        var videoElement = document.getElementById('videoElement');
-        var flvPlayer = flvjs.createPlayer({
-            isLive:true,
-            type: 'flv',
-            url: 'https://xy58x218x65x16xy.mcdn.bilivideo.cn:486/live-bvc/989016/live_1388514638_9387369_hevc/index.m3u8?expires=1705543722&len=0&oi=2015943917&pt=web&qn=0&trid=1007adfbac3b11674fb0a6ab1d2352dad35d&sigparams=cdn,expires,len,oi,pt,qn,trid&cdn=cn-gotcha16&sign=d5f882beaf6fbc7f7cc3f848779c04e8&sk=dc7da5ec3116549edddcf4f580cdbbd8&flvsk=bb54a0d1f51eef6cba7c72ca02291d6f&p2p_type=1&sl=10&free_type=0&mid=503892162&sid=mcdn-qny-jsxz-ct-14002206&chash=0&bmt=1&sche=ban&bvchls=1&score=13&pp=rtmp&source=onetier&trace=211&site=49e68292bca95c449abb8c8d8395565f&qp=de_0&zoneid_l=151371777&sid_l=live_1388514638_9387369_hevc&order=1',
-            enableWorker: true,
-            enableStashBuffer: false,
-            stashInitialSize: 128    // 减少首桢显示等待时长
-        });
-        flvPlayer.attachMediaElement(videoElement);
-        flvPlayer.load();
+// 监听播放/暂停事件
+videoPlayer.addEventListener('play', function() {
+  sendStatusToBackend('play');
+});
 
-        function play(){
-            flvPlayer.play();
-        }
+videoPlayer.addEventListener('pause', function() {
+  sendStatusToBackend('pause');
+});
 
-        function pause(){
-            flvPlayer.pause();
-        }
-    </script>
-</body>
+// 监听时间更新事件（进度条变化）
+videoPlayer.addEventListener('timeupdate', function() {
+  const currentTime = this.currentTime;
+  const duration = this.duration;
+  
+  // 只在重要时间点或者按照一定频率（例如每秒或更少）发送进度信息
+  setInterval(() => {
+      sendProgressToBackend(currentTime, duration);
+  }, 1000)
+  
+});
 
-</html>
+function sendStatusToBackend(status) {
+  // 发送POST请求到后端更新状态
+  fetch('/status', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ status: status })
+  });
+}
+
+function sendProgressToBackend(currentTime, duration) {
+  // 发送POST请求包含当前时间和总时长
+  fetch('/progress', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ currentTime: currentTime, duration: duration})
+  });
+}
+</script>

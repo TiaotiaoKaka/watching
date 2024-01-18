@@ -30,12 +30,12 @@
         <section class="movie-list">
             {% for movie in movies %}
                 <article class="movie-card">
-                    <img style="width: 300px; height: 300px" src="{{ movie.poster_url }}" alt="{{ movie.title }} 的海报" class="movie-poster">
+                    <img style="width: 300px; height: 300px" src="{{ movie.image }}" alt="{{ movie.title }} 的海报" class="movie-poster">
 {#                    <div class="movie-info">#}
                         <h3 class="movie-title">{{ movie.title }}</h3>
                         <p class="movie-director">导演：{{ movie.director }}</p>
-                        <p class="movie-genre">类型：{{ movie.genre }}</p>
-                        <p class="movie-year">上映年份：{{ movie.release_year }}</p>
+                        <p class="movie-genre">类型：{{ movie.type }}</p>
+                        <p class="movie-year">上映年份：{{ movie.time }}</p>
                         <!-- 可以根据需要添加更多电影信息 -->
 {#                    </div>#}
                     <button style=" margin: 10px" onclick="location.href='/live'">开房播放</button>

@@ -24,4 +24,5 @@ urlpatterns = [
     path('', movie.views.search_page),
     path('movie', movie.views.movie_page),
     path('live', movie.views.get_live),
+    path('streaming', movie.views.live_stream),
 ]
