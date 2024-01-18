@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-async def getOnePage(url):
+def getOnePage(url):
     response = requests.get(url)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -36,13 +36,8 @@ def getfilmdescription(film_Name):
             # 对每一页爬取内容，以数组->字典形式存入 list_json_datas
             list_json_datas = []
             # 多线程爬取
-            tasks = [asyncio.ensure_future(
-                getOnePage(f'https://www.xigua29.com/search.php?page={i}&searchword=={film_Name}')) for i in
-                     range(1, pages + 1)]
-            loop = asyncio.get_event_loop()
-            loop.run_until_complete(asyncio.wait(tasks))
-            for task in tasks:
-                list_json_datas.extend(task.result())
+            for i in range(1, pages + 1):
+                getOnePage(f'https://www.xigua29.com/search.php?page={i}&searchword=={film_Name}')
             return list_json_datas
         else:
             return []
