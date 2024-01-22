@@ -1,11 +1,11 @@
 import hashlib
 import json
 
-import requests
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from .models import Video
+
 from movie.getfilmdescription import getfilmdescription
+from .models import Video
 
 VIDEO_ROOMS_CACHE = {}
 SEARCH_CACHE = {}

@@ -8,7 +8,7 @@
 </head>
 <body>
 <button onclick="copyLink()">分享一起看链接</button>
-<button onclick="syncProgress()">同步</button>
+{#<button onclick="syncProgress()">同步</button>#}
 <!-- 假设你的Django路由是/streaming/ -->
 <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" style="height: 100%; width: 100%">
         <source id="source" src="{{ m3u8Url }}" type="application/x-mpegURL">
@@ -32,31 +32,6 @@ function copyLink() {
     alert('复制成功');
 }
 
-// 同步进度
-function syncProgress() {
-    // 获取进度并设置到播放器
-    fetch('/progress', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(res => {
-        res.json().then(data => {
-            if (data.status === 'play') {
-                // 如果时间差大于2秒则同步
-                if (Math.abs(data.currentTime - hander.currentTime()) > 1) {
-                    hander.currentTime(data.currentTime);
-                }
-                hander.play();
-            } else {
-                hander.currentTime(data.currentTime);
-                hander.pause();
-            }
-        })
-    })
-    
-}
-
 // videojs 简单使用
 hander = videojs('myVideo', {
     bigPlayButton: true,
@@ -76,35 +51,30 @@ hander.ready(function () {
     });
     
     // 同步一次进度
-    syncProgress();
-    
+
     // 定时更新进度条
     setInterval(() => {
           sendProgressToBackend(videoPlayer.currentTime(), videoPlayer.duration(), videoPlayer.paused() ? 'pause' : 'play');
     }, 3 * 1000)
 });
 
+const videoPlayer = hander;
 
 var token = "{{ token }}";
 
+var ws = new WebSocket("ws://" + window.location.host + "/room");
 
-
-const videoPlayer = hander;
-
-
-
+// 连接成功事件
+ws.addEventListener("open", function (event) {
+    // 连接成功后发送token
+    ws.send("setroom--" + token);
+});
 
 
 
 function sendProgressToBackend(currentTime, duration, status) {
-  // 发送POST请求包含当前时间和总时长
-  fetch('/progress?token='+token, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ currentTime: currentTime, duration: duration, status: status})
-  })
+    // websocket 通知其他用户
+    ws.send("setprogress--" + token + "--" + JSON.stringify({ currentTime: currentTime, duration: duration, status: status}));
 }
 </script>
 </body>

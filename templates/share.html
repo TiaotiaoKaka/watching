@@ -19,6 +19,8 @@
 
 <script>
 var token = "{{ token }}"
+var ws = new WebSocket("ws://" + window.location.host + "/room");
+
 // 复制链接
 function copyLink() {
     // 获取到域名根
@@ -34,26 +36,30 @@ function copyLink() {
     alert('复制成功');
 }
 
+// 连接成功事件
+ws.addEventListener("open", function (event) {
+    // 连接成功后发送token
+    ws.send("setroom--" + token);
+});
+
+// 收到消息事件
+ws.addEventListener("message", function (event) {
+    // 收到消息后解析消息
+    const data = JSON.parse(event.data);
+    
+    if (data.status === 'play') {
+        hander.currentTime(data.currentTime);
+        hander.play();
+    } else {
+        hander.currentTime(data.currentTime);
+        hander.pause();
+    }
+});
+
 // 同步进度
 function syncProgress() {
     // 获取进度并设置到播放器
-    fetch('/progress?token=' + token, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(res => {
-        res.json().then(data => {
-            if (data.status === 'play') {
-                hander.currentTime(data.currentTime);
-                hander.play();
-            } else {
-                hander.currentTime(data.currentTime);
-                hander.pause();
-            }
-        })
-    })
-
+    {# ws.send("getprogress--" + token) #}
 }
 
 // videojs 简单使用
@@ -81,7 +87,7 @@ hander.on('play', function () {
 })
 
 
-var token = "{{ token }}";
+
 
 // 一分钟同步一次进度
 setInterval(syncProgress, 30 * 1000);

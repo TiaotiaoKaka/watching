@@ -29,6 +29,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'simpleui',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'movie.apps.MovieConfig',
-
     # 'sslserver',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,6 +71,8 @@ TEMPLATES = [
     },
 ]
 
+# 添加该选项，表示django以asgi的模式启动
+ASGI_APPLICATION = 'waiching.asgi.application'
 WSGI_APPLICATION = 'waiching.wsgi.application'
 
 # Database
@@ -81,6 +84,18 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'data',
+#         'USER': 'root',
+#         'PASSWORD': '123123',
+#         'HOST': '127.0.0.1',
+#         'PORT': 3306,
+#         'CHARSET': 'utf8'
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
