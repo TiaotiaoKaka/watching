@@ -8,6 +8,7 @@
 </head>
 <body>
 <button onclick="copyLink()">分享一起看链接</button>
+<h1 id="count">当前在线人数：0</h1>
 {#<button onclick="syncProgress()">同步</button>#}
 <!-- 假设你的Django路由是/streaming/ -->
 <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" style="height: 100%; width: 100%">
@@ -68,13 +69,47 @@ var ws = new WebSocket("ws://" + window.location.host + "/room");
 ws.addEventListener("open", function (event) {
     // 连接成功后发送token
     ws.send("setroom--" + token);
+    ws.send("getprogress--" + token)
 });
 
+const count = document.getElementById('count');
 
+// 收到消息事件
+ws.addEventListener("message", function (event) {
+    // 收到消息后解析消息, 并更新进度条
+    const data = JSON.parse(event.data);
+    count.innerText = '当前在线人数：' + data.count;
+    if (data.msg === '{"msg": "ok"}') return;
+
+    // 没有播放器状态信息
+    if (!data.hasOwnProperty('status')) return;
+
+    if (data.status === 'play') {
+        hander.currentTime(data.currentTime);
+        hander.play();
+    } else {
+        hander.currentTime(data.currentTime);
+        hander.pause();
+    }
+
+});
+
+// 手动调节进度条时
+hander.on('seeking', function () {
+    sendProgressToBackend(videoPlayer.currentTime(), videoPlayer.duration(), videoPlayer.paused() ? 'pause' : 'play');
+});
+
+// 播放状态改变时
+hander.on('play', function () {
+    sendProgressToBackend(videoPlayer.currentTime(), videoPlayer.duration(), videoPlayer.paused() ? 'pause' : 'play');
+});
+hander.on('pause', function () {
+    sendProgressToBackend(videoPlayer.currentTime(), videoPlayer.duration(), videoPlayer.paused() ? 'pause' : 'play');
+});
 
 function sendProgressToBackend(currentTime, duration, status) {
     // websocket 通知其他用户
-    ws.send("setprogress--" + token + "--" + JSON.stringify({ currentTime: currentTime, duration: duration, status: status}));
+    ws.send("setprogress--" + token + "--" + JSON.stringify({ currentTime: currentTime, duration: duration, status: status, timestamp: Date.now()/1000 }));
 }
 </script>
 </body>
