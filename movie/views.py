@@ -4,7 +4,7 @@ import json
 import requests
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-
+from .models import Video
 from movie.getfilmdescription import getfilmdescription
 
 VIDEO_ROOMS_CACHE = {}
@@ -19,11 +19,21 @@ def search_page(request):
 
 def movie_page(request):
     query = request.GET.get('query')
+
+    # 检查缓存
     if SEARCH_CACHE.get(query):
         data = SEARCH_CACHE.get(query)
     else:
-        data = getfilmdescription(query)
-        SEARCH_CACHE[query] = data
+        video = Video.objects.filter(title__contains=query)
+        if video:  # 检查数据库有没有
+            data = [item.__dict__ for item in video]
+        else:
+            data = getfilmdescription(query)
+            SEARCH_CACHE[query] = data
+            # 没检索过
+            if not video:
+                for item in data:
+                    Video.objects.create(**item)
     return render(request, 'movie.html', {
         "movies": data
     })
