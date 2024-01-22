@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f10e77d-b5c4-4dcf-b256-86d0ae3a858f" name="更改" comment="feat: websocket同步画面">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+    <list default="true" id="0f10e77d-b5c4-4dcf-b256-86d0ae3a858f" name="更改" comment="feat: 配置数据库环境变量">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/waiching/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/waiching/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/waiching/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/waiching/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/live.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/live.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/share.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/share.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +202,7 @@
       <workItem from="1705591687956" duration="890000" />
       <workItem from="1705838381772" duration="769000" />
       <workItem from="1705840586404" duration="7362000" />
-      <workItem from="1705897152482" duration="20859000" />
+      <workItem from="1705897152482" duration="26244000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -286,7 +284,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705921973439</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="feat: 配置数据库环境变量">
+      <option name="closed" value="true" />
+      <created>1705922714546</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1705922714546</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,7 +330,8 @@
     <MESSAGE value="feat: 完善admin" />
     <MESSAGE value="feat: websokect" />
     <MESSAGE value="feat: websocket同步画面" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: websocket同步画面" />
+    <MESSAGE value="feat: 配置数据库环境变量" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 配置数据库环境变量" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

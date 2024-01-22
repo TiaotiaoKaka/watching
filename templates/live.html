@@ -1,22 +1,67 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>测试</title>
+    <title>{ title }</title>
     <script src="https://cdn.staticfile.org/video.js/8.5.3/video.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <link rel="stylesheet" href="https://cdn.staticfile.org/video.js/8.5.3/video-js.min.css" />
+    <style>
+        body {
+            width: 90vw;
+            height: 90vh;
+        }
+        #myVideo {
+            width: 80%;
+            height: 90%;
+        }
+        /* 超级无敌好看的按钮样式 */
+        button {
+          display: inline-block;
+          font-weight: bold;
+          text-align: center;
+          text-decoration: none;
+          user-select: none;
+          background-color: #4CAF50;
+          color: white;
+          padding: 15px 15px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.3s, transform 0.3s;
+          margin: 10px;
+        }
+
+        button:hover {
+          background-color: #45a049;
+          transform: scale(1.1);
+        }
+
+        button:active {
+          background-color: #3e8e41;
+          transform: scale(0.9);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+        }
+        .main {
+            {#display: flex;#}
+            {#justify-content: space-between;#}
+        }
+    </style>
 </head>
 <body>
-<button onclick="copyLink()">分享一起看链接</button>
-<h1 id="count">当前在线人数：0</h1>
+<div class="header">
+    <button onclick="copyLink()">分享一起看链接</button>
+    <h2 id="count" style="text-align: center">当前在线人数：0</h2>
+</div>
 {#<button onclick="syncProgress()">同步</button>#}
 <!-- 假设你的Django路由是/streaming/ -->
-<video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" style="height: 100%; width: 100%">
+<div class="main">
+    <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto">
         <source id="source" src="{{ m3u8Url }}" type="application/x-mpegURL">
-</video>
-
-
-
+    </video>
+</div>
 <script>
 // 复制链接
 function copyLink() {
