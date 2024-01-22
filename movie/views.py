@@ -69,8 +69,23 @@ def set_progress(request):
     return JsonResponse(PROGRESS_CACHE.get(token))
 
 
+indexx = 0
+
+
 # 把ts文件过渡传输
 def ts_stream(request):
-    url = request.GET.get('url')
-    res = requests.get(url)
-    return HttpResponse(res.content, content_type='application/octet-stream')
+    global indexx
+    # 重复播放
+
+    res = f"""#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-ALLOW-CACHE:YES
+#EXT-X-MEDIA-SEQUENCE:{indexx}
+#EXT-X-PLAYLIST-TYPE:EVENT
+#EXT-X-KEY:METHOD=AES-128,URI="https://v.gsuus.com/play/7ax76GBe/enc.key"
+#EXTINF:5.000000,
+https://gs.gszyi.com:999/hls/46/20230114/946812/plist-00001.ts
+#EXTINF:5.000000,
+"""
+    indexx = indexx + 1
+    return HttpResponse(res, content_type='application/octet-stream')
