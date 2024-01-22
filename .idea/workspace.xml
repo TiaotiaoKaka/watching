@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f10e77d-b5c4-4dcf-b256-86d0ae3a858f" name="更改" comment="feat: websokect">
-      <change afterPath="$PROJECT_DIR$/movie/consumers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/waiching/routings.py" afterDir="false" />
+    <list default="true" id="0f10e77d-b5c4-4dcf-b256-86d0ae3a858f" name="更改" comment="feat: websocket同步画面">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/live.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/live.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/share.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/share.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/waiching/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/waiching/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/waiching/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/waiching/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +204,7 @@
       <workItem from="1705591687956" duration="890000" />
       <workItem from="1705838381772" duration="769000" />
       <workItem from="1705840586404" duration="7362000" />
-      <workItem from="1705897152482" duration="20163000" />
+      <workItem from="1705897152482" duration="20859000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -278,7 +278,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705913907748</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat: websocket同步画面">
+      <option name="closed" value="true" />
+      <created>1705921973439</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1705921973439</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -315,7 +323,8 @@
     <MESSAGE value="feat: 建立模型" />
     <MESSAGE value="feat: 完善admin" />
     <MESSAGE value="feat: websokect" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: websokect" />
+    <MESSAGE value="feat: websocket同步画面" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: websocket同步画面" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
