@@ -8,6 +8,39 @@ ROOM_CACHE = {}
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
+    async def update_count(self, token, announce_self=True):
+        """
+        更新房间内人数
+        :param announce_self:
+        :param token:
+        :return:
+        """
+        count = len(ROOM_CACHE.get(token, []))
+        # 通知房间内的所有人
+        progress = {'count': count}
+        for consumer in ROOM_CACHE[token]:
+            # 不需要通知自己
+            if not announce_self and consumer == self:
+                continue
+            await consumer.send(json.dumps(progress))
+
+    async def setprogress(self, token, json_data, announce_self=False):
+        """
+        通知更新进度
+        :param json_data:
+        :param announce_self:
+        :param token:
+        :return:
+        """
+        PROGRESS_CACHE[token] = json.loads(json_data)
+        progress = PROGRESS_CACHE[token]
+        progress['count'] = len(ROOM_CACHE.get(token, [0]))
+        # 通知房间内的所有人
+        for consumer in ROOM_CACHE[token]:
+            # 不需要通知自己
+            if not announce_self and consumer == self: continue
+            await consumer.send(json.dumps(progress))
+
     async def websocket_connect(self, message):
         """
         当有客户端向后端发送websocket连接请求时，自动触发该函数
@@ -29,32 +62,22 @@ class ChatConsumer(AsyncWebsocketConsumer):
             room = ROOM_CACHE.get(token)
             # 如果房间不存在，就创建房间
             if not room:
-                ROOM_CACHE[token] = [self]
-            else:
-                ROOM_CACHE[token].append(self)
-                # 通知房间内的所有人
-                for token in ROOM_CACHE:
-                    progress = {'count': len(ROOM_CACHE.get(token, [0]))}
-                    for consumer in ROOM_CACHE[token]:
-                        await consumer.send(json.dumps(progress))
+                ROOM_CACHE[token] = []
 
-            await self.send('{"msg": "ok"}')
+            ROOM_CACHE[token].append(self)
+            # 通知房间内的所有人
+            await self.update_count(token)
 
         elif 'setprogress--' in message['text']:
             token = message['text'].split('--')[1]
             json_data = message['text'].split('--')[2]
-            PROGRESS_CACHE[token] = json.loads(json_data)
-            # 通知房间内的所有人
-            for consumer in ROOM_CACHE[token]:
-                if consumer == self:    # 不通知自己
-                    continue
-                progress = PROGRESS_CACHE[token]
-                progress['count'] = len(ROOM_CACHE.get(token, [0]))
-                await consumer.send(json.dumps(progress))
+
+            await self.setprogress(token, json_data)    # 同步进度
+            await self.update_count(token)              # 计算人数
 
         elif 'getprogress--' in message['text']:
             token = message['text'].split('--')[1]
-            progress = PROGRESS_CACHE.get(token)
+            progress = PROGRESS_CACHE.get(token, None)
             if not progress:
                 progress = {'count': 0}
             else:
@@ -79,9 +102,5 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 del ROOM_CACHE[token]
                 break
             else:
-                progress = PROGRESS_CACHE[token]
-                progress['count'] = len(ROOM_CACHE.get(token, [0]))
-                for consumer in ROOM_CACHE[token]:
-                    await consumer.send(json.dumps(progress))
-
+                await self.update_count(token, announce_self=False)  # 通知房间内的所有人，除了自己
         raise StopConsumer()
