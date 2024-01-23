@@ -1,55 +1,14 @@
+{% load static %}
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>测试</title>
+    <title>分享界面</title>
     <script src="https://cdn.staticfile.org/video.js/8.5.3/video.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <link rel="stylesheet" href="https://cdn.staticfile.org/video.js/8.5.3/video-js.min.css" />
-    <style>
-        body {
-            width: 90vw;
-            height: 90vh;
-        }
-        #myVideo {
-            width: 80%;
-            height: 90%;
-        }
+    <link rel="stylesheet" href="{% static 'css/player.css' %}">
 
-        /* 超级无敌好看的按钮样式 */
-        button {
-          display: inline-block;
-          font-weight: bold;
-          text-align: center;
-          text-decoration: none;
-          user-select: none;
-          background-color: #4CAF50;
-          color: white;
-          padding: 15px 15px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          transition: background-color 0.3s, transform 0.3s;
-          margin: 10px;
-        }
 
-        button:hover {
-          background-color: #45a049;
-          transform: scale(1.1);
-        }
-
-        button:active {
-          background-color: #3e8e41;
-          transform: scale(0.9);
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-        }
-        .main {
-            {#display: flex;#}
-            {#justify-content: space-between;#}
-        }
-    </style>
 </head>
 <body>
 <div class="header">
@@ -65,12 +24,67 @@
     <video disabled id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto">
             <source id="source" src="{{ m3u8Url }}" type="application/x-mpegURL">
     </video>
+    {#  聊天窗口  #}
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>群聊室</h1>
+            <input placeholder="我的名字"/>
+        </div>
+        <div id="chatroom" class="messages">
+            <!-- 动态插入消息的地方，这里只是示例 -->
+            <div class="message user">
+                <div class="avatar"></div>
+                <div class="message-text">管理员：请文明观影交流</div>
+            </div>
+            <div class="message admin">
+                <div class="avatar"></div>
+                <div class="message-text">管理员：欢迎来到我们的群聊室！</div>
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" class="input-field" placeholder="输入消息...">
+            <button class="send-btn" onclick="sendmsg()">发送</button>
+        </div>
+    </div>
 </div>
 
 
 <script>
 var token = "{{ token }}"
 var ws = new WebSocket("ws://" + window.location.host + "/room");
+// 聊天室
+var chatroom = document.getElementById("chatroom")
+
+function sendmsg() {
+    const msg = document.getElementsByClassName("input-field")[0].value
+    document.getElementsByClassName("input-field")[0].value = ""
+    if (msg === "" || !msg) return
+    addmsg(msg, true)
+    ws.send('chatmsg--' + token + '--' + msg)
+}
+function addmsg(content, isMe=false) {
+    const msg = document.createElement("div");
+    const avatar = document.createElement("div");
+    avatar.className = "avatar"
+    const msgtext = document.createElement("div");
+
+
+    if (isMe) {
+        msg.className = "message i"
+        msgtext.className = "message-text i"
+
+    } else {
+        msg.className = "message user"
+        msgtext.className = "message-text user"
+    }
+
+    msgtext.innerHTML = content
+    msg.appendChild(avatar)
+    msg.appendChild(msgtext)
+    chatroom.appendChild(msg)
+    chatroom.scrollTop = chatroom.scrollHeight
+    console.log('发送消息：' + content)
+}
 
 // 复制链接
 function copyLink() {
@@ -100,6 +114,7 @@ ws.addEventListener("message", function (event) {
     // 收到消息后解析消息
     const data = JSON.parse(event.data);
     count.innerText = '当前在线人数：' + data.count;
+    if (data.hasOwnProperty('chatmsg')) addmsg(data.chatmsg)
     // 没有播放器状态信息
     if (!data.hasOwnProperty('status')) return;
 
@@ -149,7 +164,13 @@ hander.on('play', function () {
 })
 
 
-
+// 按键绑定
+document.onkeydown = function (event) {
+    var e = event || window.event || arguments.callee.caller.arguments[0];
+    if (e && e.keyCode == 13) { // 按 回车键
+        sendmsg();
+    }
+};
 
 // 一分钟同步一次进度
 setInterval(syncProgress, 30 * 1000);

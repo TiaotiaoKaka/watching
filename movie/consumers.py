@@ -8,6 +8,18 @@ ROOM_CACHE = {}
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
+    async def announce_msg(self, token, msg):
+        count = len(ROOM_CACHE.get(token, []))
+        # 通知房间内的所有人
+        ip = self.scope['client'][0]
+        progress = {'count': count, 'chatmsg': ip + '：' + msg}
+
+        for consumer in ROOM_CACHE[token]:
+            # 不需要通知自己
+            if consumer == self:
+                continue
+            await consumer.send(json.dumps(progress))
+
     async def update_count(self, token, announce_self=True):
         """
         更新房间内人数
@@ -69,13 +81,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await self.send(json.dumps(PROGRESS_CACHE.get(token, {'count': 1})))
             # 通知房间内的所有人
             await self.update_count(token)
+            await self.announce_msg(token, '进入房间')
 
         elif 'setprogress--' in message['text']:
             token = message['text'].split('--')[1]
             json_data = message['text'].split('--')[2]
 
-            await self.setprogress(token, json_data)    # 同步进度
-            await self.update_count(token)              # 计算人数
+            await self.setprogress(token, json_data)  # 同步进度
+            await self.update_count(token)  # 计算人数
 
         elif 'getprogress--' in message['text']:
             token = message['text'].split('--')[1]
@@ -85,6 +98,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
             else:
                 progress['count'] = len(ROOM_CACHE.get(token, [0]))
             await self.send(json.dumps(progress))
+        elif 'chatmsg' in message['text']:
+            token = message['text'].split('--')[1]
+            msg = message['text'].split('--')[2]
+            await self.announce_msg(token, msg)
 
     async def websocket_disconnect(self, message):
         """
@@ -105,4 +122,5 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 break
             else:
                 await self.update_count(token, announce_self=False)  # 通知房间内的所有人，除了自己
+                await self.announce_msg(token, '退出房间')
         raise StopConsumer()
