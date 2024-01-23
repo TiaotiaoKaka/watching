@@ -1,3 +1,4 @@
+import asyncio
 import hashlib
 import json
 
@@ -20,13 +21,14 @@ def search_page(request):
 
 def movie_page(request):
     query = request.GET.get('query')
+    usedb = request.GET.get('usedb', True) != 'false'
 
     # 检查缓存
     if SEARCH_CACHE.get(query):
         data = SEARCH_CACHE.get(query)
     else:
         video = Video.objects.filter(title__contains=query)
-        if video:  # 检查数据库有没有
+        if video and usedb:  # 检查数据库有没有
             data = [item.__dict__ for item in video]
         else:
             data = getfilmdescription(query)

@@ -1,10 +1,29 @@
+import asyncio
+import time
+
 import requests
 from bs4 import BeautifulSoup
 import re
 import json
+import aiohttp
+
+
+async def getPageData(url):
+    print('正在爬取：' + url)
+    timestamp = int(round(time.time() * 1000))
+    html = ''
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            html = await response.text()
+
+    print('爬取完成：' + url + '，耗时：' + str(int(round(time.time() * 1000)) - timestamp) + 'ms')
+    soup = BeautifulSoup(html, 'html.parser')
+    json_datas = pageProcess(soup)
+    return json_datas
 
 
 def getfilmdescription(film_Name):
+    timestamp = int(round(time.time() * 1000))
     # 初次请求获取搜索页数 pages
     url = f'https://www.xigua29.com/search.php?page=1&searchword=={film_Name}'
     headers = {
@@ -20,19 +39,20 @@ def getfilmdescription(film_Name):
 
             # 对每一页爬取内容，以数组->字典形式存入 list_json_datas
             list_json_datas = []
-            for i in range(1, pages + 1):
-                url = f'https://www.xigua29.com/search.php?page={i}&searchword=={film_Name}'
-                response = requests.get(url, headers=headers)
-                if response.status_code == 200:
-                    soup = BeautifulSoup(response.text, 'html.parser')
-                    json_datas = pageProcess(soup)
-                    if json_datas:
-                        list_json_datas.extend(json_datas)
-                    else:
-                        # 当前页没有资源
-                        print('没有资源')
-                else:
-                    print(f"请求失败，状态码: {response.status_code}")
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+
+            tasks = [
+                loop.create_task(
+                    getPageData(f'https://www.xigua29.com/search.php?page={i}&searchword=={film_Name}')
+                )
+                for i in range(1, pages + 1)
+            ]
+            loop.run_until_complete(asyncio.wait(tasks))
+            for task in tasks:
+                json_datas = task.result()
+                list_json_datas.extend(json_datas)
+            print('total time: ' + str(int(round(time.time() * 1000)) - timestamp) + 'ms')
             return list_json_datas
         else:
             return []
