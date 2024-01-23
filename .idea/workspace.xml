@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f10e77d-b5c4-4dcf-b256-86d0ae3a858f" name="更改" comment="fix: 不同房间和影片token不隔离问题">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie/getfilmdescription.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie/getfilmdescription.py" afterDir="false" />
+    <list default="true" id="0f10e77d-b5c4-4dcf-b256-86d0ae3a858f" name="更改" comment="feat: 把检索设置为并发检索">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/movie/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -202,7 +201,7 @@
       <workItem from="1705591687956" duration="890000" />
       <workItem from="1705838381772" duration="769000" />
       <workItem from="1705840586404" duration="7362000" />
-      <workItem from="1705897152482" duration="36431000" />
+      <workItem from="1705897152482" duration="36919000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -316,7 +315,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705978629362</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="feat: 把检索设置为并发检索">
+      <option name="closed" value="true" />
+      <created>1705983342531</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1705983342531</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -358,7 +365,8 @@
     <MESSAGE value="feat: 修改播放器样式" />
     <MESSAGE value="fix: 分离ws部分功能" />
     <MESSAGE value="fix: 不同房间和影片token不隔离问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: 不同房间和影片token不隔离问题" />
+    <MESSAGE value="feat: 把检索设置为并发检索" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 把检索设置为并发检索" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/waiching$.coverage" NAME="瞎子啊 覆盖结果" MODIFIED="1705842686457" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

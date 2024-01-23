@@ -27,7 +27,7 @@ def movie_page(request):
     if SEARCH_CACHE.get(query):
         data = SEARCH_CACHE.get(query)
     else:
-        video = Video.objects.filter(title__contains=query)
+        video = Video.objects.filter(title__search=query)
         if video and usedb:  # 检查数据库有没有
             data = [item.__dict__ for item in video]
         else:
@@ -36,7 +36,9 @@ def movie_page(request):
             # 没检索过
             if not video:
                 for item in data:
-                    Video.objects.create(**item)
+                    temp = Video.objects.filter(now=item['now'])
+                    if not temp:    # m3u8地址不重复
+                        Video.objects.create(**item)
     return render(request, 'movie.html', {
         "movies": data
     })
