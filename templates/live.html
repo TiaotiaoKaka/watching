@@ -53,6 +53,7 @@
 <body>
 <div class="header">
     <button onclick="copyLink()">分享一起看链接</button>
+    <h3>主控端（负责控制播放器的状态，被控端会同步您的进度）</h3>
     <h2 id="count" style="text-align: center">当前在线人数：0</h2>
 </div>
 {#<button onclick="syncProgress()">同步</button>#}
@@ -103,6 +104,29 @@ hander.ready(function () {
           sendProgressToBackend(videoPlayer.currentTime(), videoPlayer.duration(), videoPlayer.paused() ? 'pause' : 'play');
     }, 3 * 1000)
 });
+
+// 按键绑定
+document.onkeydown = function (event) {
+    var e = event || window.event || arguments.callee.caller.arguments[0];
+    // 按 空格键
+    if (e && e.keyCode == 32) { 
+        if (hander.paused()) {
+            hander.play();
+        } else {
+            hander.pause();
+        }
+    } else if (e && e.keyCode == 37) { // 按 左键
+        hander.currentTime(hander.currentTime() - 5);
+    } else if (e && e.keyCode == 39) { // 按 右键
+        hander.currentTime(hander.currentTime() + 5);
+    } else if (e && e.keyCode == 38) { // 按 上键
+        hander.volume(hander.volume() + 0.1);
+    } else if (e && e.keyCode == 40) { // 按 下键
+        hander.volume(hander.volume() - 0.1);
+    } 
+    
+};
+
 
 const videoPlayer = hander;
 

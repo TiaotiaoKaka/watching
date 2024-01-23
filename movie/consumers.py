@@ -65,6 +65,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 ROOM_CACHE[token] = []
 
             ROOM_CACHE[token].append(self)
+            # 初始化进度情况
+            await self.send(json.dumps(PROGRESS_CACHE.get(token, {'count': 1})))
             # 通知房间内的所有人
             await self.update_count(token)
 
