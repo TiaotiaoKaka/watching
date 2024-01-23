@@ -1,4 +1,7 @@
 import datetime
+import hashlib
+import random
+import string
 
 import requests
 
@@ -75,6 +78,23 @@ def get_m3u8_content(url):
         # 正则匹配.key文件
         text = text.replace('enc.key', root_url + 'enc.key')
     return text
+
+
+# 定义字符集
+chars = string.ascii_lowercase + string.digits + string.ascii_uppercase
+
+
+def random_str(length=10):
+    # 生成长度为10的随机字符串
+    _random_str = ''.join(random.sample(chars, length))
+    return _random_str
+
+
+def str2md5(_str) -> str:
+    # 形成md5字符串
+    md5 = hashlib.md5()
+    md5.update(_str.encode('utf-8'))
+    return md5.hexdigest()
 
 
 if __name__ == '__main__':

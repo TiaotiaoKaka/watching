@@ -6,6 +6,7 @@ from django.shortcuts import render
 
 from movie.getfilmdescription import getfilmdescription
 from .models import Video
+from .utils import random_str, str2md5
 
 VIDEO_ROOMS_CACHE = {}
 SEARCH_CACHE = {}
@@ -44,12 +45,18 @@ TOKEN_CACHE = {}
 
 def get_live(request):
     m3u8Url = request.GET.get('url')
-    # 形成md5字符串
-    md5 = hashlib.md5().hexdigest()
     # 生成随机str
-    TOKEN_CACHE[md5] = {"m3u8Url": m3u8Url}
+    _str = random_str(8)
+    # 形成md5字符串
+    token = _str + "_" + str2md5(m3u8Url)
 
-    return render(request, 'live.html', {"token": md5, "m3u8Url": m3u8Url})
+    if TOKEN_CACHE.get(token):
+        # token已经存在
+        return get_live(request)
+
+    TOKEN_CACHE[token] = {"m3u8Url": m3u8Url, "token": token}
+
+    return render(request, 'live.html', TOKEN_CACHE[token])
 
 
 def live_stream(request, token=None):
