@@ -1,0 +1,32 @@
+/* header部分 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #333;
+  color: #fff;
+}
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+}
+.nav-bar ul {
+  list-style-type: none;
+  display: flex;
+}
+
+.nav-bar li {
+  margin-left: 20px;
+  font-size: 16px;
+  transition: color .3s ease;
+}
+
+.nav-bar li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-bar li a:hover {
+  color: #ccc;
+}

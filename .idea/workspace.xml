@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f10e77d-b5c4-4dcf-b256-86d0ae3a858f" name="更改" comment="fix: 美化样式">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="0f10e77d-b5c4-4dcf-b256-86d0ae3a858f" name="更改" comment="fix: 修复头像不拉伸问题">
+      <change afterPath="$PROJECT_DIR$/static/css/header-nav.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/header.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie/consumers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/live.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/live.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/share.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/share.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/movie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +23,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -43,7 +45,9 @@
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
     "Django 服务器.waiching.executor": "Debug",
+    "JavaScript 调试.chat.html.executor": "Run",
     "Python.getfilmdescription.executor": "Run",
+    "Python.tests.executor": "Run",
     "Python.utils.executor": "Debug",
     "Python.瞎子啊.executor": "Debug",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
@@ -52,6 +56,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "django.template.preview.state": "SHOW_EDITOR",
     "last_opened_file_path": "D:/codes/waiching/movie",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -76,6 +81,9 @@
     </key>
   </component>
   <component name="RunManager" selected="Django 服务器.waiching">
+    <configuration name="chat.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/waiching/templates/chat.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="瞎子啊" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="waiching" />
       <option name="ENV_FILES" value="" />
@@ -114,6 +122,29 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/movie/getfilmdescription.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="waiching" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/movie" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/movie/tests.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -173,12 +204,16 @@
     </configuration>
     <list>
       <item itemvalue="Django 服务器.waiching" />
+      <item itemvalue="JavaScript 调试.chat.html" />
+      <item itemvalue="Python.tests" />
       <item itemvalue="Python.utils" />
       <item itemvalue="Python.瞎子啊" />
       <item itemvalue="Python.getfilmdescription" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript 调试.chat.html" />
+        <item itemvalue="Python.tests" />
         <item itemvalue="Python.utils" />
         <item itemvalue="Python.瞎子啊" />
         <item itemvalue="Python.getfilmdescription" />
@@ -204,7 +239,10 @@
       <workItem from="1705591687956" duration="890000" />
       <workItem from="1705838381772" duration="769000" />
       <workItem from="1705840586404" duration="7362000" />
-      <workItem from="1705897152482" duration="40599000" />
+      <workItem from="1705897152482" duration="42864000" />
+      <workItem from="1706004091167" duration="8793000" />
+      <workItem from="1706072506427" duration="1289000" />
+      <workItem from="1706327336225" duration="1338000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -342,7 +380,39 @@
       <option name="project" value="LOCAL" />
       <updated>1705986614058</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="fix: 主控被控同步问题">
+      <option name="closed" value="true" />
+      <created>1705987521277</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1705987521277</updated>
+    </task>
+    <task id="LOCAL-00019" summary="feat: 怎加聊天窗口">
+      <option name="closed" value="true" />
+      <created>1706012368279</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1706012368279</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fix: 修复样式超高问题">
+      <option name="closed" value="true" />
+      <created>1706013249068</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1706013249068</updated>
+    </task>
+    <task id="LOCAL-00021" summary="fix: 修复头像不拉伸问题">
+      <option name="closed" value="true" />
+      <created>1706013513291</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1706013513291</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -387,11 +457,27 @@
     <MESSAGE value="feat: 把检索设置为并发检索" />
     <MESSAGE value="fix: 不记录重复的m3u8" />
     <MESSAGE value="fix: 美化样式" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: 美化样式" />
+    <MESSAGE value="fix: 主控被控同步问题" />
+    <MESSAGE value="feat: 怎加聊天窗口" />
+    <MESSAGE value="fix: 修复样式超高问题" />
+    <MESSAGE value="fix: 修复头像不拉伸问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 修复头像不拉伸问题" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/movie/tests.py</url>
+          <line>100</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/waiching$.coverage" NAME="瞎子啊 覆盖结果" MODIFIED="1705842686457" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/waiching$getfilmdescription.coverage" NAME="getfilmdescription 覆盖结果" MODIFIED="1705588175679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/movie" />
+    <SUITE FILE_PATH="coverage/waiching$tests.coverage" NAME="tests 覆盖结果" MODIFIED="1705989935891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/movie" />
     <SUITE FILE_PATH="coverage/waiching$utils.coverage" NAME="utils 覆盖结果" MODIFIED="1705849243464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/movie" />
   </component>
 </project>

@@ -7,7 +7,10 @@
     <title>电影搜索结果</title>
     <!-- 引入CSS样式 -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <style>
+    <link rel="stylesheet" href="{% static 'css/header-nav.css' %}">
+    <!-- 引入自定义字体（如果有的话） -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+    <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -97,7 +100,9 @@
 </head>
 <body>
     <!-- 导航栏和搜索框可以复用之前的代码 -->
-
+    {% block header %}
+        {% include "header.html" %}
+    {% endblock %}
     <main class="search-results-container">
         <h1 class="search-results-title">搜索结果: {{ query }} ({{ count }}条记录)</h1>
         <span>没有我想要的？<a href="/movie?query={{ query }}&usedb=false">点我更新数据</a></span>
@@ -107,7 +112,7 @@
                 <article class="movie-card">
                     <img src="{{ movie.image }}" alt="{{ movie.title }} 的海报" class="movie-poster">
                     <div class="btn">
-                        <button onclick="location.href='/live?url={{ movie.now }}'"><i class="fas fa-play"></i>开房播放</button>
+                        <button onclick="window.open('/live?url={{ movie.now }}')"><i class="fas fa-play"></i>开房播放</button>
                     </div>
                     <h3 class="movie-title">{{ movie.title }}</h3>
                     <p class="movie-director">导演：{{ movie.director }}</p>

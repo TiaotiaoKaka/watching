@@ -4,25 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>精美电影搜索界面</title>
+    <title>协同一起看片</title>
     <!-- 引入CSS样式 -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header-nav.css' %}">
     <!-- 引入自定义字体（如果有的话） -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+    <!-- 引入导航栏样式 -->
 </head>
 <body>
-    <header class="header">
-        <h1 class="logo">电影宝库</h1>
-        <nav class="nav-bar">
-            <ul>
-                <li><a href="#">首页</a></li>
-                <li><a href="#">最新影片</a></li>
-                <li><a href="#">热门分类</a></li>
-                <li><a href="#">用户中心</a></li>
-            </ul>
-        </nav>
-    </header>
-
+    {% block header %}
+        {% include "header.html" %}
+    {% endblock %}
     <main class="search-container">
         <div class="search-header">
             <h2>寻找您喜爱的电影...</h2>
