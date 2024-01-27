@@ -10,12 +10,6 @@ body {
   background-color: #f5f5f5;
 }
 
-
-
-
-
-
-
 /* 搜索区域 */
 .search-container {
   display: flex;
@@ -32,8 +26,8 @@ body {
 }
 
 .search-form {
-  width: 100%;
-  max-width: 700px;
+  width: 700px;
+  max-width: 80%;
   display: flex;
   justify-content: space-between;
   align-items: center;
