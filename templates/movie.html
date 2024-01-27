@@ -105,7 +105,7 @@
     {% endblock %}
     <main class="search-results-container">
         <h1 class="search-results-title">搜索结果: {{ query }} ({{ count }}条记录)</h1>
-        <span>没有我想要的？<a href="/movie?query={{ query }}&usedb=false">点我更新数据</a></span>
+        <span style="display: block; text-align: center;padding: 10px">没有我想要的？<a href="/movie?query={{ query }}&usedb=false">点我更新数据</a></span>
         <!-- 搜索结果列表 -->
         <section class="movie-list">
             {% for movie in movies %}
