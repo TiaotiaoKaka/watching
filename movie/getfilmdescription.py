@@ -165,6 +165,67 @@ def pageProcess(soup):
         return []
 
 
+def getLiNumber(url, headers):
+    """
+    获取剧集数量
+
+    :param url:
+    :param headers:
+    :return:
+    """
+    try:
+        url = 'https://www.xigua29.com' + url
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # 找到ul
+        playlist_ul = soup.find('ul', class_='stui-content__playlist clearfix')
+        if playlist_ul:
+            # 统计数量li数量
+            li_elements = playlist_ul.find_all('li')
+            li_count = len(li_elements)
+            return li_count
+        else:
+            return None
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
+        return None
+
+
+def getSeriesMessage(url):  # 格式:url=/play/65110-0-0.html
+    """
+    获取剧集信息
+
+    :param url:
+    :return:
+    """
+    # 从url中获取集， 从0开始
+    now_series = re.findall(r'-(\d+)\.html', url)[0]
+    now_series = int(now_series)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+    li_count = getLiNumber(url, headers)
+    if li_count is None:
+        print("没有剧集")
+        return None
+    json_data = []
+    for i in range(li_count):
+        # url_temp = str(url[:-6]) + str(i) + str(url[-5:])
+        # m3u8_values = getplaym3u8(url_temp)
+        json_temp = {
+                'index': '第' + str(i + 1) + '集',
+                'playpage': str(url[:-6]) + str(i) + str(url[-5:]),
+                'selected': True if i == now_series else False
+                # 'now': m3u8_values[0],
+                # 'next': m3u8_values[1]
+        }
+
+        json_data.append(json_temp)
+    return json_data
+
+
 def parse_m3u8(m3u8_url):
     """
     解析m3u8文件，返回m3u8文件的内容
@@ -179,4 +240,5 @@ def parse_m3u8(m3u8_url):
 
 
 if __name__ == '__main__':
-    parse_m3u8('https://v.gsuus.com/play/7ax76GBe/index.m3u8')
+    print(getSeriesMessage('/65110-0-0.html'))
+    # parse_m3u8('https://v.gsuus.com/play/7ax76GBe/index.m3u8')

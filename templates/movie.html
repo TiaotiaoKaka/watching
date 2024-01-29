@@ -112,18 +112,16 @@
                 <article class="movie-card">
                     <img src="{{ movie.image }}" alt="{{ movie.title }} 的海报" class="movie-poster">
                     <div class="btn">
-                        <button onclick="window.open('/live?url={{ movie.now }}')"><i class="fas fa-play"></i>开房播放</button>
+                        <button onclick="window.open('/live?url={{ movie.now }}&playpage={{ movie.playpage }}')"><i class="fas fa-play"></i>开房播放</button>
                     </div>
                     <h3 class="movie-title">{{ movie.title }}</h3>
                     <p class="movie-director">导演：{{ movie.director }}</p>
                     <p class="movie-genre">类型：{{ movie.type }}</p>
                     <p class="movie-year">上映年份：{{ movie.time }}</p>
                 </article>
-
             {% empty %}
                 <p class="no-results">很抱歉，没有找到与“{{ search_query }}”相关的电影。</p>
             {% endfor %}
-
         </section>
     </main>
 </body>

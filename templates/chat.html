@@ -1,0 +1,22 @@
+{#  聊天窗口组件  #}
+<div class="chat-container">
+    <div class="chat-header">
+        <h1>群聊室</h1>
+        <input id="nickname" placeholder="设置我的群聊名字"/>
+    </div>
+    <div id="chatroom" class="messages">
+        <!-- 动态插入消息的地方，这里只是示例 -->
+        <div class="message user">
+            <div class="avatar"></div>
+            <div class="message-text">管理员：请文明观影交流</div>
+        </div>
+        <div class="message admin">
+            <div class="avatar"></div>
+            <div class="message-text">管理员：欢迎来到我们的群聊室！</div>
+        </div>
+    </div>
+    <div class="chat-footer">
+        <input type="text" class="input-field" placeholder="输入消息...">
+        <button class="send-btn" onclick="sendmsg()">发送</button>
+    </div>
+</div>

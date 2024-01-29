@@ -5,7 +5,7 @@ import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
-from movie.getfilmdescription import getfilmdescription
+from movie.getfilmdescription import getfilmdescription, getSeriesMessage, getplaym3u8
 from .models import Video
 from .utils import random_str, str2md5
 
@@ -37,7 +37,7 @@ def movie_page(request):
             if not video:
                 for item in data:
                     temp = Video.objects.filter(now=item['now'])
-                    if not temp:    # m3u8地址不重复
+                    if not temp:  # m3u8地址不重复
                         Video.objects.create(**item)
     return render(request, 'movie.html', {
         "movies": data,
@@ -50,17 +50,27 @@ TOKEN_CACHE = {}
 
 
 def get_live(request):
-    m3u8Url = request.GET.get('url')
+    m3u8Url = request.GET.get('url', None)
+    playpage = request.GET.get('playpage', None)
+    if not m3u8Url and not playpage:
+        return HttpResponse("没有可以播放的地址")
+
     # 生成随机str
     _str = random_str(8)
     # 形成md5字符串
+    if not m3u8Url:
+        # 没有m3u8地址, 从playpage中爬取
+        m3u8Url, _ = getplaym3u8(playpage)
     token = _str + "_" + str2md5(m3u8Url)
-
     if TOKEN_CACHE.get(token):
-        # token已经存在
+        # token已经存在, 重新生成一个不重复的token
         return get_live(request)
+    # 获取集数信息
+    series = None
+    if playpage:
+        series = getSeriesMessage(playpage)  # 集数信息
 
-    TOKEN_CACHE[token] = {"m3u8Url": m3u8Url, "token": token}
+    TOKEN_CACHE[token] = {"m3u8Url": m3u8Url, "token": token, "series": series}
 
     return render(request, 'live.html', TOKEN_CACHE[token])
 

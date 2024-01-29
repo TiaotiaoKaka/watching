@@ -1,0 +1,33 @@
+<!-- 电视剧几集 -->
+<div class="form-group" style="padding: 10px; display: flex">
+    <label for="episodes" class="col-sm-2 control-label">选集</label>
+    <div class="col-sm-10">
+        <select class="form-control" name="series" id="series">
+            {% for item in series %}
+            	<option value="{{ item.playpage }}" {% if item.selected %}
+            		selected
+            	{% endif %} >{{ item.index }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<script>
+// 选集
+document.getElementById("series").addEventListener("change", function(){
+    var url = this.value;
+    window.location.href = `/live?playpage=${url}`;
+}, false);
+// 播放器播放完毕
+function playNext() {
+    // 自动选择播放下一集
+    var series = document.getElementById("series");
+    var index = series.selectedIndex;
+    if (index < series.length - 1) {
+        series.selectedIndex = index + 1;
+        var url = series.value;
+        window.location.href = `/live?playpage=${url}`;
+    }
+}
+
+
+</script>

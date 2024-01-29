@@ -12,6 +12,9 @@
 <body>
 <div class="header">
     <button onclick="copyLink()">分享一起看链接</button>
+    {% block episodes %}
+    	{% include "episodes.html" %}
+    {% endblock %}
     <h3>主控端（负责控制播放器的状态，被控端会同步您的进度）</h3>
     <h2 id="count" style="text-align: center">当前在线人数：0</h2>
 </div>
@@ -20,38 +23,26 @@
     <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto">
         <source id="source" src="{{ m3u8Url }}" type="application/x-mpegURL">
     </video>
-    {#  聊天窗口  #}
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1>群聊室</h1>
-            <input id="nickname" placeholder="设置我的群聊名字"/>
-        </div>
-        <div id="chatroom" class="messages">
-            <!-- 动态插入消息的地方，这里只是示例 -->
-            <div class="message user">
-                <div class="avatar"></div>
-                <div class="message-text">管理员：请文明观影交流</div>
-            </div>
-            <div class="message admin">
-                <div class="avatar"></div>
-                <div class="message-text">管理员：欢迎来到我们的群聊室！</div>
-            </div>
-        </div>
-        <div class="chat-footer">
-            <input type="text" class="input-field" placeholder="输入消息...">
-            <button class="send-btn" onclick="sendmsg()">发送</button>
-        </div>
-    </div>
+    {% block chat %}w 
+    	{% include "chat.html" %}
+    {% endblock %}
 </div>
 <script>
 // videojs 简单使用
-hander = videojs('myVideo', {
+var hander = videojs('myVideo', {
     bigPlayButton: true,
     textTrackDisplay: false,
     posterImage: false,
     errorDisplay: false
 })
 const videoPlayer = hander;
+
+hander.on('ended', function() {
+    console.log('视频播放完毕');
+    // 播放完毕自动下一集
+    playNext();
+});
+
 var token = "{{ token }}";
 var ws = new WebSocket("ws://" + window.location.host + "/room");
 var nickname = "";
@@ -197,6 +188,10 @@ function sendProgressToBackend(currentTime, duration, status) {
 document.getElementById("nickname").addEventListener("change", function (event) {
     nickname = event.target.value;
 });
+
+
+// 播放完毕自动下一集
+
 </script>
 </body>
 </html>
