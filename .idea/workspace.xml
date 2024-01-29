@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f10e77d-b5c4-4dcf-b256-86d0ae3a858f" name="更改" comment="feat: 页面加入header">
-      <change afterPath="$PROJECT_DIR$/templates/chat.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/episodes.html" afterDir="false" />
+    <list default="true" id="0f10e77d-b5c4-4dcf-b256-86d0ae3a858f" name="更改" comment="feat: 增加选集和自动下一集功能">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie/getfilmdescription.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie/getfilmdescription.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/live.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/live.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/movie.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/share.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/share.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,36 +37,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Django 服务器.waiching.executor": "Debug",
-    "JavaScript 调试.chat.html.executor": "Run",
-    "Python.getfilmdescription.executor": "Debug",
-    "Python.tests.executor": "Run",
-    "Python.utils.executor": "Debug",
-    "Python.瞎子啊.executor": "Debug",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "django.template.preview.state": "SHOW_EDITOR",
-    "last_opened_file_path": "D:/codes/waiching/movie",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Django 服务器.waiching.executor&quot;: &quot;Debug&quot;,
+    &quot;JavaScript 调试.chat.html.executor&quot;: &quot;Run&quot;,
+    &quot;Python.getfilmdescription.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.tests.executor&quot;: &quot;Run&quot;,
+    &quot;Python.utils.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.瞎子啊.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/codes/waiching/movie&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\codes\waiching\movie" />
@@ -245,7 +239,8 @@
       <workItem from="1706004091167" duration="8793000" />
       <workItem from="1706072506427" duration="1289000" />
       <workItem from="1706327336225" duration="4271000" />
-      <workItem from="1706357511368" duration="9281000" />
+      <workItem from="1706357511368" duration="11324000" />
+      <workItem from="1706527033495" duration="837000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -439,7 +434,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706332991765</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="feat: 增加选集和自动下一集功能">
+      <option name="closed" value="true" />
+      <created>1706506280255</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1706506280255</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -489,7 +492,8 @@
     <MESSAGE value="fix: 修复样式超高问题" />
     <MESSAGE value="fix: 修复头像不拉伸问题" />
     <MESSAGE value="feat: 页面加入header" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 页面加入header" />
+    <MESSAGE value="feat: 增加选集和自动下一集功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 增加选集和自动下一集功能" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -6,6 +6,7 @@
     <script src="https://cdn.staticfile.org/video.js/8.5.3/video.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <link rel="stylesheet" href="https://cdn.staticfile.org/video.js/8.5.3/video-js.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/videojs-playbackrate-adjuster@1.0.1/dist/browser/videojs-playbackrate-adjuster.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/player.css' %}">
 
 </head>
@@ -23,18 +24,26 @@
     <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto">
         <source id="source" src="{{ m3u8Url }}" type="application/x-mpegURL">
     </video>
-    {% block chat %}w 
+    {% block chat %}
     	{% include "chat.html" %}
     {% endblock %}
 </div>
 <script>
 // videojs 简单使用
 var hander = videojs('myVideo', {
+    playbackRates: [0.5, 1, 1.5, 2],
+    defaultPlaybackRate: 1,
+    
     bigPlayButton: true,
     textTrackDisplay: false,
     posterImage: false,
-    errorDisplay: false
+    errorDisplay: false,
+    
 })
+// 配置播放速率选项
+hander.playbackRates({
+    rates: [0.5, 1, 1.5, 2] // 可以自定义播放速率列表
+});
 const videoPlayer = hander;
 
 hander.on('ended', function() {
@@ -42,7 +51,6 @@ hander.on('ended', function() {
     // 播放完毕自动下一集
     playNext();
 });
-
 var token = "{{ token }}";
 var ws = new WebSocket("ws://" + window.location.host + "/room");
 var nickname = "";
