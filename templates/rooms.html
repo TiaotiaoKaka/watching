@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>房间列表</title>
+    <!-- 引入CSS样式 -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header-nav.css' %}">
+    <!-- 引入自定义字体（如果有的话） -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+    <!-- 引入导航栏样式 -->
     <script>
         var _hmt = _hmt || [];
         (function() {
@@ -17,6 +24,9 @@
 </head>
 <body>
 <ul>
+    {% block header %}
+        {% include "header.html" %}
+    {% endblock %}
     {% for room in rooms %}
         <div style="display: flex; padding: 10px">
             <a href="/streaming/{{ room.token }}" style="text-decoration: none; color: #000000">
