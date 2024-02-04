@@ -44,8 +44,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         :param token:
         :return:
         """
-        PROGRESS_CACHE[token] = json.loads(json_data)
-        progress = PROGRESS_CACHE[token]
+        progress = json.loads(json_data)
+        PROGRESS_CACHE[token] = progress
         progress['count'] = len(ROOM_CACHE.get(token, [0]))
         # 通知房间内的所有人
         for consumer in ROOM_CACHE[token]:

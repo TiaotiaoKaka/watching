@@ -164,14 +164,13 @@ ws.addEventListener("message", function (event) {
     if (data.hasOwnProperty('chatmsg')) addmsg(data.chatmsg)
     // 没有播放器状态信息
     if (!data.hasOwnProperty('status')) return;
-
     if (data.status === 'play') {
-        hander.currentTime(data.currentTime);
         hander.play();
     } else {
-        hander.currentTime(data.currentTime);
         hander.pause();
     }
+    hander.currentTime(data.currentTime);
+    hander.playbackRate(data.rate);
 
 });
 
@@ -187,18 +186,26 @@ hander.on('play', function () {
 hander.on('pause', function () {
     sendProgressToBackend(videoPlayer.currentTime(), videoPlayer.duration(), videoPlayer.paused() ? 'pause' : 'play');
 });
+// 播放倍速改变时
+hander.on('ratechange', function () {
+    sendProgressToBackend(videoPlayer.currentTime(), videoPlayer.duration(), videoPlayer.paused() ? 'pause' : 'play');
+});
 
 function sendProgressToBackend(currentTime, duration, status) {
     // websocket 通知其他用户
-    ws.send("setprogress--" + token + "--" + JSON.stringify({ currentTime: currentTime, duration: duration, status: status, timestamp: Date.now()/1000 }));
+    ws.send("setprogress--" + token + "--" + JSON.stringify({
+        currentTime: currentTime, 
+        duration: duration, 
+        status: status, 
+        rate: videoPlayer.playbackRate(), 
+        timestamp: Date.now()/1000 })
+    );
 }
 // 监听nickname输入框
 document.getElementById("nickname").addEventListener("change", function (event) {
     nickname = event.target.value;
 });
 
-
-// 播放完毕自动下一集
 
 </script>
 </body>
