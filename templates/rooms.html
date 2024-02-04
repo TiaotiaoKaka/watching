@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>房间列表</title>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?f0675b1f1fa7a10eb9488d91b05d69c6";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body>
+<ul>
+    {% for room in rooms %}
+        <div onclick="window.open('/streaming/{{ room.token }}')">
+            <img src="{{ room.image }}" alt="{{ room.title }}" width="200" height="200">
+            <li>{{ room.title }}（在线人数：{{ room.count }}）</li>
+            房间号：{{ room.token }}
+        </div>
+        {% empty %}
+                <p class="no-results">很抱歉，暂无已开的房间</p>
+    {% endfor %}
+</ul>
+</body>
+</html>

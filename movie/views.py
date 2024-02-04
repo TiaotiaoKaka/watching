@@ -6,10 +6,10 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
 from movie.getfilmdescription import getfilmdescription, getSeriesMessage, getplaym3u8
+from . import consumers
 from .models import Video
 from .utils import random_str, str2md5
 
-VIDEO_ROOMS_CACHE = {}
 SEARCH_CACHE = {}
 
 
@@ -52,6 +52,8 @@ TOKEN_CACHE = {}
 def get_live(request):
     m3u8Url = request.GET.get('url', None)
     playpage = request.GET.get('playpage', None)
+    image = request.GET.get('image', None)
+    title = request.GET.get('title', None)
     if not m3u8Url and not playpage:
         return HttpResponse("没有可以播放的地址")
 
@@ -70,7 +72,7 @@ def get_live(request):
     if playpage:
         series = getSeriesMessage(playpage)  # 集数信息
 
-    TOKEN_CACHE[token] = {"m3u8Url": m3u8Url, "token": token, "series": series}
+    TOKEN_CACHE[token] = {"m3u8Url": m3u8Url, "token": token, "series": series, "image": image, "title": title}
 
     return render(request, 'live.html', TOKEN_CACHE[token])
 
@@ -85,7 +87,6 @@ def live_stream(request, token=None):
     return render(request, 'share.html', {"m3u8Url": m3u8Url, "token": token})
 
 
-# PROGRESS_CACHE = {"currentTime": 388.649582, "duration": 1379.7866670000003, "status": "play"}
 PROGRESS_CACHE = {
     "token": {"currentTime": 388.649582, "duration": 1379.7866670000003, "status": "play"},
 }
@@ -122,3 +123,28 @@ https://gs.gszyi.com:999/hls/46/20230114/946812/plist-00001.ts
 """
     indexx = indexx + 1
     return HttpResponse(res, content_type='application/octet-stream')
+
+
+def get_rooms(request):
+    """
+    获取房间列表
+    :param request:
+    :return:
+    """
+    data = consumers.ROOM_CACHE
+    res = []
+    # 把data中所有对象转为dict
+    for token in data:
+        obj = {
+            'token': token,
+            'count': len(data[token]),
+            'title': TOKEN_CACHE[token].get('title'),
+            'image': TOKEN_CACHE[token].get('image'),
+            'users': []
+        }
+        for i in range(len(data[token])):
+            ip, port = data[token][i].__dict__['scope']['client']
+            obj['users'].append({'ip': ip, 'port': port})
+        res.append(obj)
+    return render(request, 'rooms.html', {'rooms': res})
+

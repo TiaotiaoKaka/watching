@@ -28,4 +28,5 @@ urlpatterns = [
     path('streaming/<str:token>', movie.views.live_stream),
     path('progress', movie.views.set_progress),
     path('tsreaming', movie.views.ts_stream),
+    path('rooms', movie.views.get_rooms),
 ]
