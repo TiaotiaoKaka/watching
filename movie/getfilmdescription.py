@@ -201,8 +201,10 @@ def getSeriesMessage(url):  # 格式:url=/play/65110-0-0.html
     :return:
     """
     # 从url中获取集， 从0开始
-    now_series = re.findall(r'-(\d+)\.html', url)[0]
-    now_series = int(now_series)
+    now_series = re.findall(r'-(\d+)\.html', url)
+    if not now_series:
+        return None
+    now_series = int(now_series[0])
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }

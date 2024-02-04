@@ -18,11 +18,13 @@
 <body>
 <ul>
     {% for room in rooms %}
-        <a href="/streaming/{{ room.token }}">
-            <img src="{{ room.image }}" alt="{{ room.title }}" width="200" height="200">
-            <li>{{ room.title }}（在线人数：{{ room.count }}）</li>
-            房间号：{{ room.token }}
-        </a>
+        <div style="display: flex; padding: 10px">
+            <a href="/streaming/{{ room.token }}" style="text-decoration: none; color: #000000">
+                <img src="{{ room.image }}" alt="{{ room.title }}" width="200" height="200">
+                <li>{{ room.title }}（在线人数：{{ room.count }}）</li>
+                房间号：{{ room.token }}
+            </a>
+        </div>
         {% empty %}
                 <p class="no-results">很抱歉，暂无已开的房间</p>
     {% endfor %}

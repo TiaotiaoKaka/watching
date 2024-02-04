@@ -12,10 +12,16 @@
     </div>
 </div>
 <script>
+// 获取url参数
+function getUrlParam(name) {
+    var url = new URL(window.location.href);
+    return url.searchParams.get(name);
+}
+
 // 选集
 document.getElementById("series").addEventListener("change", function(){
     var url = this.value;
-    window.location.href = `/live?playpage=${url}`;
+    window.location.href = `/live?playpage=${url}&image=${getUrlParam('image')}&title=${getUrlParam('title')}(第${this.selectedIndex + 1}集)`;
 }, false);
 // 播放器播放完毕
 function playNext() {
@@ -25,7 +31,7 @@ function playNext() {
     if (index < series.length - 1) {
         series.selectedIndex = index + 1;
         var url = series.value;
-        window.location.href = `/live?playpage=${url}`;
+        window.location.href = `/live?playpage=${url}&image=${getUrlParam('image')}&title=${getUrlParam('title')}(第${this.selectedIndex + 1}集)`;
     }
 }
 

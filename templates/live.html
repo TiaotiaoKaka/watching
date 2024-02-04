@@ -22,6 +22,7 @@
 <body>
 <div class="header">
     <button onclick="copyLink()">分享一起看链接</button>
+    {{ title }}
     {% block episodes %}
     	{% include "episodes.html" %}
     {% endblock %}
