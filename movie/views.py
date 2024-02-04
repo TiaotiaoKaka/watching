@@ -8,6 +8,7 @@ from django.shortcuts import render
 from movie.getfilmdescription import getfilmdescription, getSeriesMessage, getplaym3u8
 from . import consumers
 from .models import Video
+from .tests import query2
 from .utils import random_str, str2md5
 
 SEARCH_CACHE = {}
@@ -17,6 +18,10 @@ SEARCH_CACHE = {}
 
 def search_page(request):
     return render(request, 'search.html')
+
+
+def search_page2(request):
+    return render(request, 'search2.html')
 
 
 def movie_page(request):
@@ -43,6 +48,19 @@ def movie_page(request):
         "movies": data,
         "query": query,
         "count": len(data)
+    })
+
+
+def movie_page2(request):
+    query = request.GET.get('query')
+    page = request.GET.get('page', 1)
+    movies = query2(query, page)
+    return render(request, 'movie2.html', {
+        "movies": movies,
+        "query": query,
+        "page": page,
+        "next_page": int(page) + 1,
+        "prev_page": int(page) - 1
     })
 
 
@@ -147,4 +165,3 @@ def get_rooms(request):
             obj['users'].append({'ip': ip, 'port': port})
         res.append(obj)
     return render(request, 'rooms.html', {'rooms': res})
-

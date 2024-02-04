@@ -14,6 +14,26 @@ from pathlib import Path
 import dotenv
 dotenv.load_dotenv()
 import os
+
+SIMPLEUI_CONFIG = {
+    'system_keep': True,  # 保持系统菜单
+    'menu_display': ['视频管理', '认证和授权'],
+    'dynamic': True,  # 设置是否开启动态菜单, 默认为False. 如果开启, 则会在每次用户登陆时动态展示菜单内容
+    'menus': [{
+        'app': 'movie',
+        'name': '视频管理',
+        'icon': 'fas fa-film',
+        'models': [{
+            'name': '视频',
+            'icon': 'fas fa-film',
+            'url': '/admin/movie/video/'
+        }, {
+            'name': '高级视频',
+            'icon': 'fas fa-film',
+            'url': '/search2',
+        }]},
+       ]
+}
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

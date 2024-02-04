@@ -22,7 +22,9 @@ import movie.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', movie.views.search_page),
+    path('search2', movie.views.search_page2),
     path('movie', movie.views.movie_page),
+    path('movie2', movie.views.movie_page2),
     path('live', movie.views.get_live),
     # path('streaming', movie.views.live_stream),
     path('streaming/<str:token>', movie.views.live_stream),
