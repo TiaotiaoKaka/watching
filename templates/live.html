@@ -220,7 +220,7 @@ document.getElementById("nickname").addEventListener("change", function (event) 
 var watchingLog = JSON.parse(localStorage.getItem("watchingLog") || "[]");
 watchingLog.push({
     url: `${location.pathname}${location.search}`,
-    title: getUrlParam("title"),
+    title: {{ title }},
     time: new Date().toLocaleString(),
     image: getUrlParam("image"),
 });

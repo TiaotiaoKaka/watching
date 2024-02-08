@@ -31,4 +31,5 @@ urlpatterns = [
     path('progress', movie.views.set_progress),
     path('tsreaming', movie.views.ts_stream),
     path('rooms', movie.views.get_rooms),
+    path('hot', movie.views.hot_movie_page),
 ]

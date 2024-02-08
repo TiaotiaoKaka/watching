@@ -1,11 +1,12 @@
 import asyncio
 import hashlib
 import json
+import time
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
-from movie.getfilmdescription import getfilmdescription, getSeriesMessage, getplaym3u8
+from movie.getfilmdescription import getfilmdescription, getSeriesMessage, getplaym3u8, gethotfilms
 from . import consumers
 from .models import Video
 from .search2api import query2
@@ -51,6 +52,35 @@ def movie_page(request):
     })
 
 
+HOT_CACHE = {}
+hot_time = 0
+
+
+def hot_movie_page(request):
+    """
+    热门电影
+    :param request:
+    :return:
+    """
+    global hot_time, HOT_CACHE
+    # 获取缓存
+    if HOT_CACHE:
+        # 检查时间
+        if hot_time + 60 * 60 < time.time():    # 1小时更新一次
+            json_data = gethotfilms()
+            HOT_CACHE = json_data
+            hot_time = time.time()
+        else:
+            json_data = HOT_CACHE
+    else:
+        json_data = gethotfilms()
+        HOT_CACHE = json_data
+        hot_time = time.time()
+    return render(request, 'hot.html', {
+        'data': json_data
+    })
+
+
 def movie_page2(request):
     query = request.GET.get('query')
     page = request.GET.get('page', 1)
@@ -80,7 +110,10 @@ def get_live(request):
     # 形成md5字符串
     if not m3u8Url:
         # 没有m3u8地址, 从playpage中爬取
-        m3u8Url, _ = getplaym3u8(playpage)
+        m3u8Url, _title = getplaym3u8(playpage)
+        m3u8Url = m3u8Url[0]
+        if not title:  # 如果没有title, 从playpage中爬取
+            title = _title
     token = _str + "_" + str2md5(m3u8Url)
     if TOKEN_CACHE.get(token):
         # token已经存在, 重新生成一个不重复的token

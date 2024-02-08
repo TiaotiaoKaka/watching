@@ -61,6 +61,28 @@ def getfilmdescription(film_Name):
         return []
 
 
+def gethotfilms():
+    """
+    获取热门影视
+    :return:
+    """
+    response = requests.get('https://www.xigua29.com/')
+    html = response.text
+    soup = BeautifulSoup(html, 'html.parser')
+    div_class_tags = soup.find_all('div', class_='stui-pannel stui-pannel-bg clearfix')  # 获取影视类型
+    div_class_tags = div_class_tags[1:]  # 去掉第一个
+    json_datas = {}
+    for div_tag in div_class_tags:
+        classname = div_tag.find('h3').text.replace('\r', '').replace('\n', '').replace(' ', '').replace('\t', '')
+        a_tags = div_tag.find_all('a', class_='stui-vodlist__thumb lazyload')
+        json_datas[classname] = [{
+            'image': 'https://www.xigua29.com' + a_tag['data-original'],
+            'title': a_tag['title'],
+            'playpage': '/play/' + re.findall(r'(\d+)\.html', a_tag['href'])[0] + '-0-0.html'
+        } for a_tag in a_tags]
+    return json_datas
+
+
 def getplaym3u8(playpage_original_value):
     url = f'https://www.xigua29.com{playpage_original_value}'
     headers = {
@@ -69,6 +91,7 @@ def getplaym3u8(playpage_original_value):
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
+        title = soup.title.string[:-7]
         # 查找script 标签，并且文本内容包含 var now
         script_tags = soup.find_all('script', text=re.compile(r'var\s+now'))
         if script_tags:
@@ -87,7 +110,7 @@ def getplaym3u8(playpage_original_value):
                     m3u8_values.append(m3u8_value)
                 else:
                     m3u8_values.append('')
-                return m3u8_values
+                return m3u8_values, title
         else:
             return None
     else:
@@ -217,11 +240,11 @@ def getSeriesMessage(url):  # 格式:url=/play/65110-0-0.html
         # url_temp = str(url[:-6]) + str(i) + str(url[-5:])
         # m3u8_values = getplaym3u8(url_temp)
         json_temp = {
-                'index': '第' + str(i + 1) + '集',
-                'playpage': str(url[:-6]) + str(i) + str(url[-5:]),
-                'selected': True if i == now_series else False
-                # 'now': m3u8_values[0],
-                # 'next': m3u8_values[1]
+            'index': '第' + str(i + 1) + '集',
+            'playpage': str(url[:-6]) + str(i) + str(url[-5:]),
+            'selected': True if i == now_series else False
+            # 'now': m3u8_values[0],
+            # 'next': m3u8_values[1]
         }
 
         json_data.append(json_temp)
@@ -242,5 +265,7 @@ def parse_m3u8(m3u8_url):
 
 
 if __name__ == '__main__':
-    print(getSeriesMessage('/65110-0-0.html'))
+    # print(getSeriesMessage('/65110-0-0.html'))
     # parse_m3u8('https://v.gsuus.com/play/7ax76GBe/index.m3u8')
+    hotfilms = gethotfilms()
+    print(hotfilms)
