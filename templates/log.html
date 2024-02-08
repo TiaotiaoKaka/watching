@@ -1,6 +1,7 @@
 <!-- 可选：推荐区域，根据热门或算法推荐电影 -->
 <div class="recommendations" style="padding: 10px">
     <h3>最近看过</h3>
+    <a href="javascript:clearAll()" style="color: #f44336">清空</a>
     <section id="watchingLog" class="movie-list" style="display: flex; padding: 10px; max-width: 30%">
     </section>
 </div>
@@ -19,11 +20,15 @@ movies.forEach(function(movie) {
     article.innerHTML = `
         <img src="${movie.image}" alt="${movie.title} 的海报" class="movie-poster">
         <div class="btn">
-            <button class="search-btn" style="width: 100%; background-color: #4CAF50" ck="window.open('/live?url=${movie.now}&playpage=${movie.playpage}&title=${movie.title}&image=${movie.image}')"><i class="fas fa-play"></i>播放</button>
+            <button class="search-btn" style="width: 100%; background-color: #4CAF50" onclick="window.open('${movie.url}')"><i class="fas fa-play"></i>播放</button>
         </div>
         <h3 class="movie-title">${movie.title}</h3>
         <p class="movie-year">上次观看时间：${movie.time}</p>
     `;
     watchingLog.appendChild(article);
 });
+function clearAll() {
+    localStorage.removeItem("watchingLog");
+    watchingLog.innerHTML = "";
+}
 </script>
