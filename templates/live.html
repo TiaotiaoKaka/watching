@@ -216,7 +216,23 @@ document.getElementById("nickname").addEventListener("change", function (event) 
     nickname = event.target.value;
 });
 
-
+// 存储播放日志到localsotrage
+var watchingLog = JSON.parse(localStorage.getItem("watchingLog") || "[]");
+watchingLog.push({
+    url: `${location.pathname}${location.search}`,
+    title: getUrlParam("title"),
+    time: new Date().toLocaleString(),
+    image: getUrlParam("image"),
+});
+//去除重复
+watchingLog = watchingLog.reduce((acc, cur) => {
+    if (acc.findIndex((item) => item.url === cur.url) === -1) {
+        acc.push(cur);
+    }
+    return acc;
+}, []);
+if (watchingLog.length > 10)  watchingLog = watchingLog.slice(-10);
+localStorage.setItem("watchingLog", JSON.stringify(watchingLog));
 </script>
 </body>
 </html>

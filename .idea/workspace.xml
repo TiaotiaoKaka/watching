@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f10e77d-b5c4-4dcf-b256-86d0ae3a858f" name="更改" comment="feat: 增加选集和自动下一集功能">
+    <list default="true" id="0f10e77d-b5c4-4dcf-b256-86d0ae3a858f" name="更改" comment="fix: 重构接口包名">
+      <change afterPath="$PROJECT_DIR$/templates/log.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/live.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/live.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +23,8 @@
       <list>
         <option value="Python Script" />
         <option value="CSS File" />
+        <option value="Gherkin feature file" />
+        <option value="UML Sequence" />
         <option value="HTML File" />
       </list>
     </option>
@@ -40,10 +44,12 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Sequence&quot;,
     &quot;Django 服务器.waiching.executor&quot;: &quot;Debug&quot;,
     &quot;JavaScript 调试.chat.html.executor&quot;: &quot;Run&quot;,
     &quot;Python.getfilmdescription.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.tests.executor&quot;: &quot;Run&quot;,
+    &quot;Python.search2api (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.tests.executor&quot;: &quot;Debug&quot;,
     &quot;Python.utils.executor&quot;: &quot;Debug&quot;,
     &quot;Python.瞎子啊.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
@@ -51,14 +57,14 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/codes/waiching/movie&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/codes/waiching/templates&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -69,6 +75,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\codes\waiching\templates" />
       <recent name="D:\codes\waiching\movie" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -78,29 +85,6 @@
   </component>
   <component name="RunManager" selected="Django 服务器.waiching">
     <configuration name="chat.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/waiching/templates/chat.html" useBuiltInWebServerPort="true">
-      <method v="2" />
-    </configuration>
-    <configuration name="瞎子啊" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="waiching" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/瞎子啊.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <configuration name="getfilmdescription" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -126,7 +110,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tests" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="search2api (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="waiching" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -140,7 +124,30 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/movie/tests.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/movie/search2api.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="search2api" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="waiching" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/movie" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="D:\codes\waiching\movie\search2api.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -201,18 +208,18 @@
     <list>
       <item itemvalue="Django 服务器.waiching" />
       <item itemvalue="JavaScript 调试.chat.html" />
-      <item itemvalue="Python.tests" />
+      <item itemvalue="Python.search2api (1)" />
+      <item itemvalue="Python.search2api" />
       <item itemvalue="Python.utils" />
-      <item itemvalue="Python.瞎子啊" />
       <item itemvalue="Python.getfilmdescription" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.search2api (1)" />
+        <item itemvalue="Python.search2api" />
         <item itemvalue="Python.getfilmdescription" />
         <item itemvalue="JavaScript 调试.chat.html" />
-        <item itemvalue="Python.tests" />
         <item itemvalue="Python.utils" />
-        <item itemvalue="Python.瞎子啊" />
       </list>
     </recent_temporary>
   </component>
@@ -240,7 +247,13 @@
       <workItem from="1706072506427" duration="1289000" />
       <workItem from="1706327336225" duration="4271000" />
       <workItem from="1706357511368" duration="11324000" />
-      <workItem from="1706527033495" duration="837000" />
+      <workItem from="1706527033495" duration="6614000" />
+      <workItem from="1706620670133" duration="788000" />
+      <workItem from="1706843419147" duration="5976000" />
+      <workItem from="1706853460146" duration="2174000" />
+      <workItem from="1707018052351" duration="16681000" />
+      <workItem from="1707360306749" duration="3470000" />
+      <workItem from="1707388723698" duration="1538000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -442,7 +455,87 @@
       <option name="project" value="LOCAL" />
       <updated>1706506280255</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="feat: 增加倍速功能">
+      <option name="closed" value="true" />
+      <created>1706527991631</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1706527991631</updated>
+    </task>
+    <task id="LOCAL-00027" summary="feat: 增加倍速功能">
+      <option name="closed" value="true" />
+      <created>1707018171980</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1707018171980</updated>
+    </task>
+    <task id="LOCAL-00028" summary="feat: 增加百度统计">
+      <option name="closed" value="true" />
+      <created>1707018260425</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1707018260425</updated>
+    </task>
+    <task id="LOCAL-00029" summary="fix:referrer被禁用问题">
+      <option name="closed" value="true" />
+      <created>1707033885576</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1707033885576</updated>
+    </task>
+    <task id="LOCAL-00030" summary="feat: 增加房间列表展示界面">
+      <option name="closed" value="true" />
+      <created>1707035990871</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1707035990871</updated>
+    </task>
+    <task id="LOCAL-00031" summary="feat: 增加房间列表展示界面">
+      <option name="closed" value="true" />
+      <created>1707036312050</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1707036312050</updated>
+    </task>
+    <task id="LOCAL-00032" summary="feat: 完善播放页信息">
+      <option name="closed" value="true" />
+      <created>1707038253043</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1707038253043</updated>
+    </task>
+    <task id="LOCAL-00033" summary="feat: 增加rooms的样式">
+      <option name="closed" value="true" />
+      <created>1707038611945</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1707038611945</updated>
+    </task>
+    <task id="LOCAL-00034" summary="feat: 增加二级专用搜索接口">
+      <option name="closed" value="true" />
+      <created>1707047024109</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1707047024109</updated>
+    </task>
+    <task id="LOCAL-00035" summary="fix: 重构接口包名">
+      <option name="closed" value="true" />
+      <created>1707360770972</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1707360770972</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -472,10 +565,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="init" />
-    <MESSAGE value="feat: 完成基本的播放和分享框架" />
-    <MESSAGE value="fix: 取消多线程爬取" />
-    <MESSAGE value="feat: 单页加载" />
     <MESSAGE value="feat: 建立模型" />
     <MESSAGE value="feat: 完善admin" />
     <MESSAGE value="feat: websokect" />
@@ -493,23 +582,21 @@
     <MESSAGE value="fix: 修复头像不拉伸问题" />
     <MESSAGE value="feat: 页面加入header" />
     <MESSAGE value="feat: 增加选集和自动下一集功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 增加选集和自动下一集功能" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/movie/tests.py</url>
-          <line>100</line>
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="feat: 增加倍速功能" />
+    <MESSAGE value="feat: 增加百度统计" />
+    <MESSAGE value="fix:referrer被禁用问题" />
+    <MESSAGE value="feat: 增加房间列表展示界面" />
+    <MESSAGE value="feat: 完善播放页信息" />
+    <MESSAGE value="feat: 增加rooms的样式" />
+    <MESSAGE value="feat: 增加二级专用搜索接口" />
+    <MESSAGE value="fix: 重构接口包名" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 重构接口包名" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/waiching$.coverage" NAME="瞎子啊 覆盖结果" MODIFIED="1705842686457" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/waiching$getfilmdescription.coverage" NAME="getfilmdescription 覆盖结果" MODIFIED="1706501358470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/movie" />
-    <SUITE FILE_PATH="coverage/waiching$tests.coverage" NAME="tests 覆盖结果" MODIFIED="1705989935891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/movie" />
+    <SUITE FILE_PATH="coverage/waiching$tests.coverage" NAME="tests 覆盖结果" MODIFIED="1707042648644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/movie" />
+    <SUITE FILE_PATH="coverage/waiching$search2api__1_.coverage" NAME="search2api (1) 覆盖结果" MODIFIED="1707047206963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/movie" />
     <SUITE FILE_PATH="coverage/waiching$utils.coverage" NAME="utils 覆盖结果" MODIFIED="1705849243464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/movie" />
   </component>
 </project>

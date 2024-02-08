@@ -35,22 +35,11 @@
             <input type="text" name="query" placeholder="请输入电影名称、导演或演员..." class="search-input" required>
             <button type="submit" class="search-btn">搜索</button>
         </form>
-
-        <!-- 可选：推荐区域，根据热门或算法推荐电影 -->
-{#        <section class="recommendations">#}
-{#            <h3>热门搜索</h3>#}
-{#            <ul class="movie-list">#}
-{#                <li>#}
-{#                    <img src="placeholder.jpg" alt="电影海报" class="movie-poster">#}
-{#                    <div class="movie-info">#}
-{#                        <h4>电影名称</h4>#}
-{#                        <p>导演 / 主演</p>#}
-{#                    </div>#}
-{#                </li>#}
-{#                <!-- 重复以上结构以展示多个推荐电影 -->#}
-{#            </ul>#}
-{#        </section>#}
     </main>
+    <!-- 最近观看记录 -->
+    {% block log %}
+        {% include "log.html" %}
+    {% endblock %}
 
     <!-- 引入JavaScript文件，用于处理搜索功能等交互逻辑 -->
 </body>
