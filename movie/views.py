@@ -8,7 +8,7 @@ from django.shortcuts import render
 from movie.getfilmdescription import getfilmdescription, getSeriesMessage, getplaym3u8
 from . import consumers
 from .models import Video
-from .tests import query2
+from .search2api import query2
 from .utils import random_str, str2md5
 
 SEARCH_CACHE = {}
